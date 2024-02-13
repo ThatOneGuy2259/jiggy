@@ -47,8 +47,9 @@ async def play(ctx, url):
     try:
         yt = YouTube(url)
         audio_stream = yt.streams.filter(only_audio=True).first()
+        audio_stream.download(filename="audio.mp4")
         await ctx.send(f"Now playing: {yt.title}")
-        voice_client.play(discord.FFmpegPCMAudio(audio_stream.url))
+        voice_client.play(discord.FFmpegPCMAudio("audio.mp4"))
     except Exception as e:
         await ctx.send(f"Error: {str(e)}")
 
