@@ -53,5 +53,26 @@ async def play(ctx, url):
     except Exception as e:
         await ctx.send(f"Error: {str(e)}")
 
+
+# Command: Stop playing
+@bot.command()
+async def stop(ctx):
+    voice_client = ctx.guild.voice_client
+    if voice_client and voice_client.is_playing():
+        voice_client.stop()
+        await ctx.send("Playback stopped.")
+    else:
+        await ctx.send("I'm not playing anything.")
+
+# Command: Skip to next song
+@bot.command()
+async def skip(ctx):
+    voice_client = ctx.guild.voice_client
+    if voice_client and voice_client.is_playing():
+        voice_client.stop()
+        await ctx.send("Skipped to the next song.")
+    else:
+        await ctx.send("I'm not playing anything.")
+        
 # Run the bot
 bot.run(TOKEN)
